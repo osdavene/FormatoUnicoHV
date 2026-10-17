@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formato Único de Hoja de Vida — Persona Natural</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Barra Superior -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-badge">HV</div>
+        <div class="brand-text">
+          <h1>Formato Único de Hoja de Vida (Persona Natural)</h1>
+          <p><span class="save-dot"></span> <span id="saveStatusText">Guardado automáticamente en este navegador</span></p>
+        </div>
+      </div>
+
+      <div class="toolbar-actions">
+        <button type="button" class="btn btn-outline btn-sm" id="btnLoadDemo" title="Cargar datos ficticios de prueba para ver cómo luce el PDF">
+          ✨ Datos de Ejemplo
+        </button>
+        <button type="button" class="btn btn-outline btn-sm" id="btnClearAll" title="Vaciar todo el formulario">
+          🗑️ Limpiar
+        </button>
+        <button type="button" class="btn btn-outline btn-sm" id="btnExportJson" title="Descargar tus datos en un archivo .json de respaldo">
+          💾 Exportar JSON
+        </button>
+        <label class="btn btn-outline btn-sm" for="inputImportJson" title="Cargar un archivo .json guardado previamente">
+          📂 Importar JSON
+        </label>
+        <input type="file" id="inputImportJson" accept=".json,application/json" style="display:none;" />
+        <button type="button" class="btn btn-dark" id="btnPreviewPdf">
+          👁️ Vista Previa PDF
+        </button>
+        <button type="button" class="btn btn-primary" id="btnDownloadPdf">
+          📄 Descargar PDF Oficial
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal -->
+  <div class="container">
+    <!-- Navegación Lateral -->
+    <aside class="sidebar">
+      <div class="sidebar-title">Secciones del Formato</div>
+      <ul class="nav-list">
+        <li><a href="#sec-1" class="nav-link active"><span class="nav-step">1</span> Datos Personales</a></li>
+        <li><a href="#sec-2" class="nav-link"><span class="nav-step">2</span> Formación Académica</a></li>
+        <li><a href="#sec-3" class="nav-link"><span class="nav-step">3</span> Experiencia Laboral</a></li>
+        <li><a href="#sec-4" class="nav-link"><span class="nav-step">4</span> Tiempo de Experiencia</a></li>
+        <li><a href="#sec-5" class="nav-link"><span class="nav-step">5</span> Firma y Juramento</a></li>
+      </ul>
+
+      <div class="sidebar-help">
+        <strong>💡 ¿Cómo funciona?</strong>
+        <span>• Todo lo que escribas se guarda solo en tu navegador.</span>
+        <span>• Tus experiencias laborales se ordenan <strong>de la más reciente a la más antigua</strong> automáticamente al generar el PDF.</span>
+        <span>• Si tienes más de 4 experiencias, el PDF agrega hojas adicionales del Punto 3 automáticamente.</span>
+      </div>
+    </aside>
+
+    <!-- Formulario Principal -->
+    <main class="main-content">
+
+      <!-- SECCIÓN 1: DATOS PERSONALES -->
+      <section class="section-card" id="sec-1">
+        <div class="section-header">
+          <div class="section-header-left">
+            <div class="section-number">1</div>
+            <div>
+              <h2>Datos Personales</h2>
+              <p>Hoja 1 del Formato Único — Identificación, nacimiento y correspondencia</p>
+            </div>
+          </div>
+          <div style="min-width: 240px;">
+            <input type="text" data-field="entidadReceptora" placeholder="Entidad Receptora (Opcional)" title="Recuadro superior derecho de la Hoja 1" />
+          </div>
+        </div>
+
+        <div class="section-body">
+          <div class="grid-3">
+            <div class="field">
+              <label>Primer Apellido</label>
+              <input type="text" data-field="primerApellido" placeholder="Ej: PÉREZ" />
+            </div>
+            <div class="field">
+              <label>Segundo Apellido (o de casada)</label>
+              <input type="text" data-field="segundoApellido" placeholder="Ej: GÓMEZ" />
+            </div>
+            <div class="field">
+              <label>Nombres</label>
+              <input type="text" data-field="nombres" placeholder="Ej: JUAN CARLOS" />
+            </div>
+          </div>
+
+          <div class="grid-4">
+            <div class="field">
+              <label>Tipo de Documento</label>
+              <div class="radio-group">
+                <label class="radio-pill"><input type="radio" name="tipoDoc" value="CC" checked /> C.C</label>
+                <label class="radio-pill"><input type="radio" name="tipoDoc" value="CE" /> C.E</label>
+                <label class="radio-pill"><input type="radio" name="tipoDoc" value="PAS" /> PAS</label>
+              </div>
+            </div>
+            <div class="field">
+              <label>No. de Documento</label>
+              <input type="text" data-field="numDoc" placeholder="Ej: 1020304050" />
+            </div>
+            <div class="field">
+              <label>Sexo</label>
+              <div class="radio-group">
+                <label class="radio-pill"><input type="radio" name="sexo" value="F" /> F</label>
+                <label class="radio-pill"><input type="radio" name="sexo" value="M" checked /> M</label>
+              </div>
+            </div>
+            <div class="field">
+              <label>Nacionalidad y País</label>
+              <div style="display:flex; gap:0.4rem; align-items:center;">
+                <label class="radio-pill"><input type="radio" name="nacionalidad" value="COL" checked /> COL.</label>
+                <label class="radio-pill"><input type="radio" name="nacionalidad" value="EXT" /> EXT.</label>
+                <input type="text" data-field="paisNacionalidad" placeholder="País" value="COLOMBIA" />
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection-title">Libreta Militar (Opcional)</div>
+          <div class="grid-3">
+            <div class="field">
+              <label>Clase de Libreta</label>
+              <div class="radio-group">
+                <label class="radio-pill"><input type="radio" name="claseLibreta" value="" checked /> N/A</label>
+                <label class="radio-pill"><input type="radio" name="claseLibreta" value="PRIMERA" /> Primera Clase</label>
+                <label class="radio-pill"><input type="radio" name="claseLibreta" value="SEGUNDA" /> Segunda Clase</label>
+              </div>
+            </div>
+            <div class="field">
+              <label>Número de Libreta</label>
+              <input type="text" data-field="numLibreta" placeholder="Opcional" />
+            </div>
+            <div class="field">
+              <label>D.M (Distrito Militar)</label>
+              <input type="text" data-field="dmLibreta" placeholder="Opcional" />
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <!-- Columna izquierda: Fecha y Lugar de Nacimiento -->
+            <div style="display:flex; flex-direction:column; gap:0.85rem;">
+              <div class="subsection-title">Fecha y Lugar de Nacimiento</div>
+              <div class="grid-2">
+                <div class="field">
+                  <label>Fecha de Nacimiento</label>
+                  <input type="date" data-field="fechaNacimiento" />
+                </div>
+                <div class="field">
+                  <label>País de Nacimiento</label>
+                  <input type="text" data-field="paisNacimiento" placeholder="Ej: COLOMBIA" value="COLOMBIA" />
+                </div>
+              </div>
+              <div class="grid-2">
+                <div class="field">
+                  <label>Departamento Nacimiento</label>
+                  <input type="text" data-field="deptoNacimiento" placeholder="Ej: CUNDINAMARCA" />
+                </div>
+                <div class="field">
+                  <label>Municipio Nacimiento</label>
+                  <input type="text" data-field="municipioNacimiento" placeholder="Ej: BOGOTÁ D.C." />
+                </div>
+              </div>
+            </div>
+
+            <!-- Columna derecha: Dirección de Correspondencia -->
+            <div style="display:flex; flex-direction:column; gap:0.85rem;">
+              <div class="subsection-title">Dirección de Correspondencia</div>
+              <div class="field">
+                <label>Dirección Física</label>
+                <input type="text" data-field="direccionCorrespondencia" placeholder="Ej: Calle 100 # 15 - 20 Apto 301" />
+              </div>
+              <div class="grid-3">
+                <div class="field">
+                  <label>País</label>
+                  <input type="text" data-field="paisCorrespondencia" placeholder="COLOMBIA" value="COLOMBIA" />
+                </div>
+                <div class="field">
+                  <label>Departamento</label>
+                  <input type="text" data-field="deptoCorrespondencia" placeholder="Ej: ANTIOQUIA" />
+                </div>
+                <div class="field">
+                  <label>Municipio</label>
+                  <input type="text" data-field="municipioCorrespondencia" placeholder="Ej: MEDELLÍN" />
+                </div>
+              </div>
+              <div class="grid-2">
+                <div class="field">
+                  <label>Teléfono / Celular</label>
+                  <input type="tel" data-field="telefono" placeholder="Ej: 300 123 4567" />
+                </div>
+                <div class="field">
+                  <label>Correo Electrónico (Email)</label>
+                  <input type="email" data-field="email" placeholder="ejemplo@correo.com" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 2: FORMACIÓN ACADÉMICA -->
+      <section class="section-card" id="sec-2">
+        <div class="section-header">
+          <div class="section-header-left">
+            <div class="section-number">2</div>
+            <div>
+              <h2>Formación Académica</h2>
+              <p>Educación básica y media, educación superior (pregrado/postgrado) e idiomas</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-body">
+          <div class="subsection-title">Educación Básica y Media</div>
+          <div class="grid-3">
+            <div class="field">
+              <label>Último Grado Aprobado (1o. a 11)</label>
+              <div class="grade-selector" id="gradeSelector">
+                <!-- Generado dinámicamente del 1 al 11 -->
+              </div>
+            </div>
+            <div class="field">
+              <label>Título Obtenido</label>
+              <input type="text" data-field="tituloBachiller" placeholder="Ej: BACHILLER ACADÉMICO" />
+            </div>
+            <div class="field">
+              <label>Fecha de Grado (Mes y Año)</label>
+              <div class="grid-2">
+                <select data-field="mesGradoBachiller">
+                  <option value="">Mes...</option>
+                  <option value="01">01 - Enero</option>
+                  <option value="02">02 - Febrero</option>
+                  <option value="03">03 - Marzo</option>
+                  <option value="04">04 - Abril</option>
+                  <option value="05">05 - Mayo</option>
+                  <option value="06">06 - Junio</option>
+                  <option value="07">07 - Julio</option>
+                  <option value="08">08 - Agosto</option>
+                  <option value="09">09 - Septiembre</option>
+                  <option value="10">10 - Octubre</option>
+                  <option value="11">11 - Noviembre</option>
+                  <option value="12">12 - Diciembre</option>
+                </select>
+                <input type="number" data-field="anioGradoBachiller" placeholder="Año (Ej: 2015)" min="1950" max="2099" />
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection-title">
+            <span>Educación Superior (Pregrado y Postgrado) — Máx. 5 en Hoja 1</span>
+            <button type="button" class="btn btn-outline btn-sm" id="btnAddEstudio">➕ Agregar Estudio Superior</button>
+          </div>
+          <div id="estudiosList" class="item-list"></div>
+
+          <div class="subsection-title">
+            <span>Idiomas Diferentes al Español — Máx. 2 en Hoja 1</span>
+            <button type="button" class="btn btn-outline btn-sm" id="btnAddIdioma">➕ Agregar Idioma</button>
+          </div>
+          <div id="idiomasList" class="item-list"></div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: EXPERIENCIA LABORAL -->
+      <section class="section-card" id="sec-3">
+        <div class="section-header">
+          <div class="section-header-left">
+            <div class="section-number">3</div>
+            <div>
+              <h2>Experiencia Laboral o de Prestación de Servicios</h2>
+              <p>Se ordenan automáticamente de la más reciente (o actual) a la más antigua</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <button type="button" class="btn btn-outline btn-sm" id="btnSortExperiencias" style="background:rgba(255,255,255,0.12); color:#fff; border-color:rgba(255,255,255,0.3);">
+              ⇅ Ordenar ahora (Más reciente → Más antigua)
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" id="btnAddExperiencia">
+              ➕ Agregar Experiencia Laboral
+            </button>
+          </div>
+        </div>
+
+        <div class="section-body">
+          <div class="info-banner">
+            <div>
+              <strong>📅 Orden cronológico automático:</strong> Al generar el PDF, tus experiencias se colocan siempre <strong>de la más reciente a la más antigua</strong> (comenzando por el empleo actual o contrato vigente). Cada hoja del PDF tiene 4 bloques; si agregas más de 4, se crearán hojas adicionales automáticamente.
+            </div>
+          </div>
+
+          <div id="experienciasList" class="item-list"></div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 4: TIEMPO TOTAL DE EXPERIENCIA -->
+      <section class="section-card" id="sec-4">
+        <div class="section-header">
+          <div class="section-header-left">
+            <div class="section-number">4</div>
+            <div>
+              <h2>Tiempo Total de Experiencia</h2>
+              <p>Hoja 3 del Formato Único — Resumen en años y meses por sector</p>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary btn-sm" id="btnCalcTiempo">
+            🧮 Calcular automáticamente desde mis experiencias
+          </button>
+        </div>
+
+        <div class="section-body">
+          <p style="font-size:0.84rem; color:var(--text-muted);">
+            Puedes usar el botón para calcular automáticamente los años y meses a partir de las fechas registradas en la Sección 3, o ajustarlos manualmente si lo prefieres:
+          </p>
+
+          <table class="exp-summary-table">
+            <thead>
+              <tr>
+                <th>Ocupación</th>
+                <th style="width:130px;">Años</th>
+                <th style="width:130px;">Meses</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>SERVIDOR PÚBLICO</strong></td>
+                <td><input type="number" min="0" data-field="tiempoPublicoAnios" placeholder="0" /></td>
+                <td><input type="number" min="0" max="11" data-field="tiempoPublicoMeses" placeholder="0" /></td>
+              </tr>
+              <tr>
+                <td><strong>EMPLEADO DEL SECTOR PRIVADO</strong></td>
+                <td><input type="number" min="0" data-field="tiempoPrivadoAnios" placeholder="0" /></td>
+                <td><input type="number" min="0" max="11" data-field="tiempoPrivadoMeses" placeholder="0" /></td>
+              </tr>
+              <tr>
+                <td><strong>TRABAJADOR INDEPENDIENTE</strong></td>
+                <td><input type="number" min="0" data-field="tiempoIndependienteAnios" placeholder="0" /></td>
+                <td><input type="number" min="0" max="11" data-field="tiempoIndependienteMeses" placeholder="0" /></td>
+              </tr>
+              <tr class="total-row">
+                <td>TOTAL TIEMPO EXPERIENCIA</td>
+                <td><input type="number" min="0" data-field="tiempoTotalAnios" placeholder="0" /></td>
+                <td><input type="number" min="0" max="11" data-field="tiempoTotalMeses" placeholder="0" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 5: FIRMA Y DILIGENCIAMIENTO -->
+      <section class="section-card" id="sec-5">
+        <div class="section-header">
+          <div class="section-header-left">
+            <div class="section-number">5</div>
+            <div>
+              <h2>Firma del Servidor Público o Contratista</h2>
+              <p>Hoja 3 del Formato Único — Declaración de inhabilidades, ciudad/fecha y firma</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-body">
+          <div class="grid-2">
+            <div class="field">
+              <label>Declaración de Inhabilidad e Incompatibilidad</label>
+              <small>Manifiesto bajo la gravedad del juramento que ___ me encuentro dentro de las causales de inhabilidad e incompatibilidad:</small>
+              <div class="radio-group" style="margin-top:0.35rem;">
+                <label class="radio-pill"><input type="radio" name="inhabilidad" value="SI" /> SÍ me encuentro</label>
+                <label class="radio-pill"><input type="radio" name="inhabilidad" value="NO" checked /> NO me encuentro (Normal)</label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Ciudad y Fecha de Diligenciamiento</label>
+              <div style="display:flex; gap:0.5rem;">
+                <input type="text" data-field="ciudadFechaDiligenciamiento" placeholder="Ej: Bogotá D.C., 17 de octubre de 2026" />
+                <button type="button" class="btn btn-outline btn-sm" id="btnSetToday" title="Poner la fecha de hoy">📅 Hoy</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection-title">Imagen de tu Firma</div>
+          <div class="signature-container">
+            <div>
+              <div class="signature-dropzone" id="signatureDropzone">
+                <p style="font-weight:700; color:var(--primary); margin-bottom:0.3rem;">📤 Haz clic aquí o arrastra la imagen de tu firma</p>
+                <p style="font-size:0.78rem; color:var(--text-muted);">Soporta PNG, JPG o WEBP. Se limpiará el fondo blanco automáticamente para que luzca como tinta real sobre el PDF.</p>
+                <input type="file" id="inputSignatureFile" accept="image/*" style="display:none;" />
+              </div>
+
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:0.75rem; margin-top:0.75rem; flex-wrap:wrap;">
+                <label style="display:inline-flex; align-items:center; gap:0.4rem; font-size:0.82rem; font-weight:600; cursor:pointer;">
+                  <input type="checkbox" id="chkRemoveBg" checked />
+                  Quitar fondo blanco automáticamente
+                </label>
+                <div style="display:flex; gap:0.4rem;">
+                  <button type="button" class="btn btn-outline btn-sm" id="btnToggleDraw">✍️ Dibujar firma</button>
+                  <button type="button" class="btn btn-danger-ghost btn-sm" id="btnRemoveSignature">Quitar firma</button>
+                </div>
+              </div>
+
+              <!-- Lienzo opcional para dibujar firma -->
+              <div class="draw-canvas-wrap" id="drawCanvasWrap">
+                <small style="color:var(--text-muted);">Dibuja tu firma en el recuadro blanco:</small>
+                <canvas id="drawSignatureCanvas" width="380" height="130"></canvas>
+                <div style="display:flex; gap:0.5rem;">
+                  <button type="button" class="btn btn-outline btn-sm" id="btnClearCanvas">Limpiar trazo</button>
+                  <button type="button" class="btn btn-primary btn-sm" id="btnUseCanvasSignature">Usar esta firma</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Vista previa de cómo se verá la firma sobre la línea del formato -->
+            <div class="signature-preview-box">
+              <span id="signaturePlaceholderText" style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.5rem;">Sin firma cargada</span>
+              <img id="signaturePreviewImg" alt="Vista previa de la firma" />
+              <div class="signature-preview-line">FIRMA DEL SERVIDOR PÚBLICO O CONTRATISTA</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal Vista Previa del PDF -->
+  <div class="modal-backdrop" id="pdfModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Vista Previa — Formato Único de Hoja de Vida Oficial</h3>
+        <div style="display:flex; gap:0.5rem;">
+          <button type="button" class="btn btn-primary btn-sm" id="btnModalDownload">📄 Descargar PDF</button>
+          <button type="button" class="btn btn-outline btn-sm" id="btnCloseModal" style="background:transparent; color:#fff; border-color:rgba(255,255,255,0.4);">✕ Cerrar</button>
+        </div>
+      </div>
+      <iframe id="pdfPreviewFrame" title="Vista previa del PDF"></iframe>
+    </div>
+  </div>
+
+  <!-- Librería pdf-lib local y plantilla PDF oficial en Base64 -->
+  <script src="pdf-lib.min.js"></script>
+  <script src="pdf-template.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
