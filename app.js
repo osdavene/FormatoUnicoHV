@@ -252,7 +252,7 @@ function renderEstudios() {
     el.addEventListener("input", (e) => {
       const i = Number(e.target.getAttribute("data-est-idx"));
       const k = e.target.getAttribute("data-est-key");
-      state.estudios[i][k] = e.target.value;
+      state.estudios[i][k] = forceInputUppercase(e.target);
       saveState();
     });
   });
@@ -330,7 +330,7 @@ function renderIdiomas() {
     el.addEventListener("input", (e) => {
       const i = Number(e.target.getAttribute("data-idi-idx"));
       const k = e.target.getAttribute("data-idi-key");
-      state.idiomas[i][k] = e.target.value;
+      state.idiomas[i][k] = forceInputUppercase(e.target);
       saveState();
     });
   });
@@ -421,7 +421,7 @@ function renderExperiencias() {
         </div>
         <div class="field">
           <label>Correo Electrónico Entidad</label>
-          <input type="email" data-exp-idx="${idx}" data-exp-key="correoEntidad" value="${escapeAttr(exp.correoEntidad)}" placeholder="contacto@entidad.gov.co" />
+          <input type="email" data-exp-idx="${idx}" data-exp-key="correoEntidad" value="${escapeAttr(exp.correoEntidad)}" placeholder="CONTACTO@ENTIDAD.GOV.CO" />
         </div>
       </div>
 
@@ -451,7 +451,7 @@ function renderExperiencias() {
         </div>
         <div class="field">
           <label>Dirección</label>
-          <input type="text" data-exp-idx="${idx}" data-exp-key="direccion" value="${escapeAttr(exp.direccion)}" placeholder="Ej: Carrera 8 # 12 - 34" />
+          <input type="text" data-exp-idx="${idx}" data-exp-key="direccion" value="${escapeAttr(exp.direccion)}" placeholder="Ej: CARRERA 8 # 12 - 34" />
         </div>
       </div>
     `;
@@ -463,7 +463,7 @@ function renderExperiencias() {
     el.addEventListener("input", (e) => {
       const i = Number(e.target.getAttribute("data-exp-idx"));
       const k = e.target.getAttribute("data-exp-key");
-      state.experiencias[i][k] = e.target.value;
+      state.experiencias[i][k] = forceInputUppercase(e.target);
       updateExperienceOrderBadges();
       saveState();
     });
@@ -531,6 +531,25 @@ function escapeAttr(val) {
     .replace(/"/g, "&quot;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
+}
+
+function forceInputUppercase(el) {
+  const val = String(el.value ?? "");
+  if (el.tagName === "INPUT" && ["text", "email", "tel"].includes(el.type)) {
+    const upper = val.toUpperCase();
+    if (el.value !== upper) {
+      try {
+        const start = el.selectionStart;
+        const end = el.selectionEnd;
+        el.value = upper;
+        if (start !== null && end !== null) el.setSelectionRange(start, end);
+      } catch (_) {
+        el.value = upper;
+      }
+    }
+    return upper;
+  }
+  return val;
 }
 
 // ============================================================================
@@ -775,7 +794,7 @@ async function generateOfficialPdfBytes() {
   const y = (topY) => PAGE_HEIGHT - topY;
 
   function drawTextFit(page, text, xLeft, topBaselineY, maxWidth, fontSize = 8.5, bold = false) {
-    const str = String(text ?? "").trim();
+    const str = String(text ?? "").trim().toUpperCase();
     if (!str) return;
     const f = bold ? fontBold : fontRegular;
     let size = fontSize;
@@ -792,7 +811,7 @@ async function generateOfficialPdfBytes() {
   }
 
   function drawCenteredText(page, text, xCenter, topBaselineY, fontSize = 8.5, bold = false) {
-    const str = String(text ?? "").trim();
+    const str = String(text ?? "").trim().toUpperCase();
     if (!str) return;
     const f = bold ? fontBold : fontRegular;
     const w = f.widthOfTextAtSize(str, fontSize);
@@ -1096,12 +1115,12 @@ function loadDemoData() {
     paisNacimiento: "COLOMBIA",
     deptoNacimiento: "CUNDINAMARCA",
     municipioNacimiento: "BOGOTÁ D.C.",
-    direccionCorrespondencia: "Calle 100 # 15 - 20",
+    direccionCorrespondencia: "CALLE 100 # 15 - 20",
     paisCorrespondencia: "COLOMBIA",
     deptoCorrespondencia: "CUNDINAMARCA",
     municipioCorrespondencia: "BOGOTÁ D.C.",
     telefono: "3001234567",
-    email: "juan.perez@ejemplo.com",
+    email: "JUAN.PEREZ@EJEMPLO.COM",
     gradoBasica: "11",
     tituloBachiller: "BACHILLER ACADÉMICO",
     mesGradoBachiller: "11",
@@ -1137,13 +1156,13 @@ function loadDemoData() {
         pais: "COLOMBIA",
         departamento: "CUNDINAMARCA",
         municipio: "BOGOTÁ D.C.",
-        correoEntidad: "contacto@ejemplo.com",
+        correoEntidad: "CONTACTO@EJEMPLO.COM",
         telefonos: "6011234567",
         fechaIngreso: "2022-02-01",
         fechaRetiro: "",
         cargo: "PROFESIONAL DE PROYECTOS",
         dependencia: "DIRECCIÓN DE TECNOLOGÍA",
-        direccion: "Carrera 10 # 20 - 30"
+        direccion: "CARRERA 10 # 20 - 30"
       }
     ],
     tiempoPublicoAnios: "0",
@@ -1155,7 +1174,7 @@ function loadDemoData() {
     tiempoTotalAnios: "4",
     tiempoTotalMeses: "8",
     inhabilidad: "NO",
-    ciudadFechaDiligenciamiento: "Bogotá D.C., 17 de octubre de 2026",
+    ciudadFechaDiligenciamiento: "BOGOTÁ D.C., 17 DE OCTUBRE DE 2026",
     firmaDataUrl: createDemoSignatureDataUrl()
   };
   syncStaticInputsFromState();
@@ -1200,7 +1219,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("[data-field]").forEach(el => {
     el.addEventListener("input", (e) => {
       const key = e.target.getAttribute("data-field");
-      state[key] = e.target.value;
+      state[key] = forceInputUppercase(e.target);
       if (key.startsWith("tiempo") && !key.startsWith("tiempoTotal")) {
         recomputeTotalTiempoRow();
       }
@@ -1251,10 +1270,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fecha de hoy
   document.getElementById("btnSetToday")?.addEventListener("click", () => {
-    const meses = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+    const meses = ["ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"];
     const d = new Date();
-    const muni = state.municipioCorrespondencia || "Bogotá D.C.";
-    state.ciudadFechaDiligenciamiento = `${muni}, ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}`;
+    const muni = (state.municipioCorrespondencia || "BOGOTÁ D.C.").toUpperCase();
+    state.ciudadFechaDiligenciamiento = `${muni}, ${d.getDate()} DE ${meses[d.getMonth()]} DE ${d.getFullYear()}`;
     syncStaticInputsFromState();
     saveState();
   });

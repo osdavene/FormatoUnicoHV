@@ -406,6 +406,12 @@ select {
   transition: border-color 0.15s, box-shadow 0.15s;
 }
 
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  text-transform: uppercase;
+}
+
 input:focus,
 select:focus {
   outline: none;
