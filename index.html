@@ -11,15 +11,26 @@
   <!-- Barra Superior -->
   <header class="topbar">
     <div class="topbar-inner">
-      <div class="brand">
-        <div class="brand-badge">HV</div>
-        <div class="brand-text">
-          <h1>Formato Único de Hoja de Vida (Persona Natural)</h1>
-          <p><span class="save-dot"></span> <span id="saveStatusText">Guardado automáticamente en este navegador</span></p>
+      <div class="brand-row">
+        <div class="brand">
+          <div class="brand-badge">HV</div>
+          <div class="brand-text">
+            <h1>Formato Único de Hoja de Vida</h1>
+            <p><span class="save-dot"></span> <span id="saveStatusText">Autoguardado activo</span></p>
+          </div>
+        </div>
+
+        <div class="mobile-top-controls">
+          <button type="button" class="btn btn-primary btn-sm" id="btnMobileDownloadPdf">
+            📄 PDF
+          </button>
+          <button type="button" class="btn btn-outline btn-sm" id="btnToggleMobileMenu" aria-label="Menú de opciones">
+            ☰ Opciones
+          </button>
         </div>
       </div>
 
-      <div class="toolbar-actions">
+      <div class="toolbar-actions" id="toolbarActions">
         <button type="button" class="btn btn-outline btn-sm" id="btnLoadDemo" title="Cargar datos ficticios de prueba para ver cómo luce el PDF">
           ✨ Datos de Ejemplo
         </button>

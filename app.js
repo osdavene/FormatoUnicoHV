@@ -229,7 +229,7 @@ function renderEstudios() {
         </div>
       </div>
       <div class="grid-3">
-        <div class="field" style="grid-column: span 2;">
+        <div class="field col-span-2">
           <label>Nombre de los Estudios o Título Obtenido</label>
           <input type="text" data-est-idx="${idx}" data-est-key="nombreTitulo" value="${escapeAttr(est.nombreTitulo)}" placeholder="Ej: INGENIERO DE SISTEMAS" />
         </div>
@@ -385,7 +385,7 @@ function renderExperiencias() {
       </div>
 
       <div class="grid-4">
-        <div class="field" style="grid-column: span 2;">
+        <div class="field col-span-2">
           <label>Empresa o Entidad</label>
           <input type="text" data-exp-idx="${idx}" data-exp-key="empresa" value="${escapeAttr(exp.empresa)}" placeholder="Nombre de la empresa o entidad contratante" />
         </div>
@@ -1373,7 +1373,26 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   document.getElementById("btnDownloadPdf")?.addEventListener("click", downloadPdf);
+  document.getElementById("btnMobileDownloadPdf")?.addEventListener("click", downloadPdf);
   document.getElementById("btnModalDownload")?.addEventListener("click", downloadPdf);
+
+  // Menú desplegable de opciones en móvil
+  const btnToggleMobileMenu = document.getElementById("btnToggleMobileMenu");
+  const toolbarActions = document.getElementById("toolbarActions");
+  btnToggleMobileMenu?.addEventListener("click", () => {
+    const isOpen = toolbarActions?.classList.toggle("open");
+    btnToggleMobileMenu.textContent = isOpen ? "✕ Cerrar" : "☰ Opciones";
+  });
+
+  // Cerrar el menú móvil al pulsar cualquiera de sus opciones
+  toolbarActions?.querySelectorAll(".btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (window.innerWidth <= 960 && toolbarActions.classList.contains("open")) {
+        toolbarActions.classList.remove("open");
+        if (btnToggleMobileMenu) btnToggleMobileMenu.textContent = "☰ Opciones";
+      }
+    });
+  });
 
   // Vista Previa del PDF en Modal
   document.getElementById("btnPreviewPdf")?.addEventListener("click", async () => {
